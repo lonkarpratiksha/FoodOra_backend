@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.foodora.modal.Food;
 import com.foodora.modal.User;
 import com.foodora.service.FoodService;
-import com.foodora.service.RestaurantService;
+// import com.foodora.service.RestaurantService;
 import com.foodora.service.UserService;
 
 
@@ -29,8 +29,8 @@ public class CustomerFoodController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RestaurantService restaurantService;
+    // @Autowired
+    // private RestaurantService restaurantService;
 
     @GetMapping("/search")
     private ResponseEntity<List<Food>> searchFood(@RequestParam String name,
