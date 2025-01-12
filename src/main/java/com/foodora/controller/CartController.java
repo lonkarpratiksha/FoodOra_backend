@@ -10,7 +10,9 @@ import com.foodora.Request.AddCartItemRequest;
 import com.foodora.Request.UpdateCartItemRequest;
 import com.foodora.modal.Cart;
 import com.foodora.modal.CartItem;
+import com.foodora.modal.User;
 import com.foodora.service.CartService;
+import com.foodora.service.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,9 @@ public class CartController {
     
     @Autowired
     CartService cartService;
+
+    @Autowired
+    private UserService userService;
 
     @PutMapping("/cart/add")
     public ResponseEntity<CartItem> addItemToCart(
@@ -66,8 +71,8 @@ public class CartController {
     public ResponseEntity<Cart> clearCart(
         @RequestHeader("Authorization") String jwt
     ) throws Exception{
-
-        Cart cart= cartService.clearCart(jwt);
+        User user= userService.findUserByJwtToken(jwt);
+        Cart cart= cartService.clearCart(user.getId());
 
         return new ResponseEntity<>(cart,HttpStatus.OK);
     }
@@ -77,7 +82,8 @@ public class CartController {
         @RequestHeader("Authorization") String jwt
     ) throws Exception{
 
-        Cart cart= cartService.findCartByUserId(jwt);
+        User user= userService.findUserByJwtToken(jwt);
+        Cart cart= cartService.findCartByUserId(user.getId());
         return new ResponseEntity<>(cart,HttpStatus.OK);
     }
 }
