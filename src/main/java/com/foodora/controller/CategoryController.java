@@ -16,6 +16,7 @@ import com.foodora.service.CategoryService;
 import com.foodora.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -35,16 +36,19 @@ public class CategoryController {
         User user=userService.findUserByJwtToken(jwt);
 
         Category createdCategory=categoryService.createCategory(category.getName(), user.getId());
-
+        
         return new ResponseEntity<>(createdCategory,HttpStatus.CREATED);
 
     }
 
-    @GetMapping("/category/restaurant")
-    public ResponseEntity<List<Category>> getRestaurantCategory(@RequestHeader("Authorization")String jwt)throws Exception{
+    @GetMapping("/category/restaurant/{id}")
+    public ResponseEntity<List<Category>> getRestaurantCategory(
+        @PathVariable Long id,
+        @RequestHeader("Authorization")String jwt)throws Exception{
         User user=userService.findUserByJwtToken(jwt);
 
-        List<Category> categories=categoryService.findCategoryByRestaurantId(user.getId());
+        List<Category> categories=categoryService.findCategoryByRestaurantId(id);
+        
 
         return new ResponseEntity<>(categories,HttpStatus.CREATED);
 

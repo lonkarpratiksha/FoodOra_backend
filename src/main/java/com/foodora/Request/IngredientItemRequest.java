@@ -7,6 +7,6 @@ public class IngredientItemRequest {
     
 
     private Long restaurantId;
-    private String ingredientName;
+    private String name;
     private Long categoryId;
 }

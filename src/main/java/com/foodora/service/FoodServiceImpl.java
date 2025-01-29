@@ -1,5 +1,6 @@
 package com.foodora.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,7 +31,8 @@ public class FoodServiceImpl implements FoodService{
         food.setPrice(req.getPrice());
         food.setIngredients(req.getIngredients());
         food.setSeasonal(req.isSeasional());
-        food.setVegetarian(req.isVegetarin());
+        food.setVegetarian(req.isVegetarian());
+        food.setCreationDate(new Date());
 
         Food savedFood= foodRepository.save(food);
 
